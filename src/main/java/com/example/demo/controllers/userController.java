@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dtos.LoginDto;
 import com.example.demo.entities.users;
 import com.example.demo.services.UserService;
 
@@ -35,4 +36,12 @@ public class userController {
 		return ResponseEntity.badRequest().body(Map.of("Error",e.getMessage()));
 	}
 	} 
+	
+	@PostMapping
+	public String Login(@RequestBody LoginDto loginDto) {
+		
+		
+		
+		return null;
+	}
 }
