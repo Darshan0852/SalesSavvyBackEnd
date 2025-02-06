@@ -37,11 +37,5 @@ public class userController {
 	}
 	} 
 	
-	@PostMapping
-	public String Login(@RequestBody LoginDto loginDto) {
-		
-		
-		
-		return null;
-	}
+	
 }

@@ -46,6 +46,13 @@ public class jwt_tokens {
 		this.expires_at = expires_at;
 	}
 
+	
+	public jwt_tokens(users user, String token) {
+		super();
+		this.user = user;
+		this.token = token;
+	}
+
 	public int getToken_id() {
 		return token_id;
 	}
