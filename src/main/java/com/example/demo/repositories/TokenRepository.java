@@ -1,5 +1,7 @@
 package com.example.demo.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +22,6 @@ public interface TokenRepository  extends JpaRepository<jwt_tokens, Integer>{
 	@Transactional
 	@Query("delete from jwt_tokens t where t.user.user_id = :user_id")
 	void deleteByuser_id(@Param("user_id") int user_id);
+	
+	Optional<jwt_tokens> findBytoken(String token);
 }

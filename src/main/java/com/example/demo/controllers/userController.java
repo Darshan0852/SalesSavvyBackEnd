@@ -16,7 +16,7 @@ import com.example.demo.services.UserService;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin
-public class userController {
+public class userController {    
 
 	UserService userService;
 	
@@ -30,7 +30,7 @@ public class userController {
 	public ResponseEntity<?> Register(@RequestBody users user) {
 		try {
 	users register	=userService.Registration(user);
-	return ResponseEntity.ok(Map.of("Message", "Success", "User", register));
+	return ResponseEntity.ok(Map.of("Message", "Success"));
 	}catch (Exception e) {
 		// TODO: handle exception
 		return ResponseEntity.badRequest().body(Map.of("Error",e.getMessage()));
