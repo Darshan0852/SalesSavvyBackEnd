@@ -1,24 +1,73 @@
 package com.example.demo.controllers;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entities.Product;
+import com.example.demo.entities.User;
+import com.example.demo.services.ProductService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @RestController
 @RequestMapping("/api/product")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class ProductsController {
 
-	@GetMapping("/getProducts")
-	public List Products() {
-		
-		List AllProducts = new LinkedList<>();
-		
-		return AllProducts;
+	private ProductService productService;
+
+	public ProductsController(ProductService productService) {
+		// TODO Auto-generated constructor stub
+		this.productService=productService;
+	}
+
+	@GetMapping()
+	public ResponseEntity<Map<String, Object>> Products(@RequestParam(required = false) String category , HttpServletRequest request) {
+
+		try {
+			User authenticateUser = (User)request.getAttribute("authenticatedUser");
+			if(authenticateUser == null) {
+				return ResponseEntity.status(401).body(Map.of("error" , "Unauthorized Access"));
+			}
+			List<Product> products = productService.getProductsByCategory(category);
+
+			Map<String, Object> response = new HashMap<>();
+
+			Map<String, String> userInfo = new HashMap<>();
+			userInfo.put("name", authenticateUser.getUsername());
+			userInfo.put("role", authenticateUser.getRole().name());
+			response.put("user", userInfo);
+
+
+			List<Map<String, Object>> productList = new ArrayList<>();
+			for (Product product : products)
+			{ Map<String, Object> productDetails = new HashMap<>();
+			productDetails.put("product_id", product.getProduct_id());
+			productDetails.put("name", product.getName());
+			productDetails.put("description", product.getDescrption());
+			productDetails.put("price", product.getPrice());
+			productDetails.put("stock", product.getStock());
+
+			List<String> images = productService.getProductImages(product.getProduct_id());
+			productDetails.put("images", images);
+			productList.add(productDetails);
+			}
+			response.put("products", productList);
+			return ResponseEntity.ok(response);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+		}
 	}
 }

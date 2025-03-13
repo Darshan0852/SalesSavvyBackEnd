@@ -9,19 +9,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entities.jwt_tokens;
+import com.example.demo.entities.JWTToken;
 @Repository
-public interface TokenRepository  extends JpaRepository<jwt_tokens, Integer>{
+public interface JWTTokenRepository  extends JpaRepository<JWTToken, Integer>{
 
-	
-	@Query("select t from jwt_tokens t where t.user.user_id = :user_id")
-	jwt_tokens findByuser_id(@Param("user_id") int user_id);
-	
-	
+	  Optional<JWTToken> findByToken(String token);
+
+	@Query("select t from JWTToken t where t.user.userId = :userId")
+	JWTToken findByUserId(@Param("userId") int userId);
+
+
 	@Modifying
 	@Transactional
-	@Query("delete from jwt_tokens t where t.user.user_id = :user_id")
-	void deleteByuser_id(@Param("user_id") int user_id);
-	
-	Optional<jwt_tokens> findBytoken(String token);
+	@Query("delete from JWTToken t where t.user.userId = :userId")
+	void deleteByUserId(@Param("userId") int userId);
+
 }

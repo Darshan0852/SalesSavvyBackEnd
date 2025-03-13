@@ -3,9 +3,9 @@ package com.example.demo.dtos;
 public class LoginDto {
 
 	String username;
-	
+
 	String password;
-	
+
 	public LoginDto() {
 		// TODO Auto-generated constructor stub
 	}
@@ -31,6 +31,6 @@ public class LoginDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
+
 }

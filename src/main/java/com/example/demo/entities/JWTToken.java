@@ -12,60 +12,60 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
-public class jwt_tokens {
+@Table(name= "jwt_tokens")
+public class JWTToken {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int token_id;
-	
+	int tokenId;
+
 	@ManyToOne
 	@JoinColumn(name="user_id")
-     users user;
+     User user;
 	@Column
 	String token;
 	@Column
-   LocalDateTime expires_at;	
-	
-	public jwt_tokens() {
+   LocalDateTime expires_at;
+
+	public JWTToken() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public jwt_tokens(int token_id, users user, String token, LocalDateTime expires_at) {
+	public JWTToken(int token_id, User user, String token, LocalDateTime expires_at) {
 		super();
-		this.token_id = token_id;
+		this.tokenId = token_id;
 		this.user = user;
 		this.token = token;
 		this.expires_at = expires_at;
 	}
 
-	public jwt_tokens(users user, String token, LocalDateTime expires_at) {
+	public JWTToken(User user, String token, LocalDateTime expires_at) {
 		super();
 		this.user = user;
 		this.token = token;
 		this.expires_at = expires_at;
 	}
 
-	
-	public jwt_tokens(users user, String token) {
+
+	public JWTToken(User user, String token) {
 		super();
 		this.user = user;
 		this.token = token;
 	}
 
 	public int getToken_id() {
-		return token_id;
+		return tokenId;
 	}
 
 	public void setToken_id(int token_id) {
-		this.token_id = token_id;
+		this.tokenId = token_id;
 	}
 
-	public users getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -84,7 +84,7 @@ public class jwt_tokens {
 	public void setExpires_at(LocalDateTime expires_at) {
 		this.expires_at = expires_at;
 	}
-	
-	
-	
+
+
+
 }

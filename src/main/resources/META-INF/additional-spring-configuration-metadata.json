@@ -8,5 +8,15 @@
     "name": "jwt.secret",
     "type": "java.lang.String",
     "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "razorpay.key_id",
+    "type": "java.lang.String",
+    "description": "A description for 'razorpay.key_id'"
+  },
+  {
+    "name": "razorpay.key_secret",
+    "type": "java.lang.String",
+    "description": "A description for 'razorpay.key_secret'"
   }
 ]}
